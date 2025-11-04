@@ -13,6 +13,13 @@ class MarkdownParser:
     def __init__(self):
         self.toc_items = []
     
+    def _create_anchor_name(self, text):
+        """Create a clean anchor name from heading text"""
+        # Remove special characters and replace spaces with underscores
+        anchor = re.sub(r'[^\w\s-]', '', text)
+        anchor = re.sub(r'[-\s]+', '_', anchor)
+        return anchor.lower()
+    
     def detect_document_info(self, content, document_info):
         """Automatically detect document information from markdown content"""
         lines = content.split('\n')
@@ -125,11 +132,17 @@ class MarkdownParser:
                         i += 1
                         continue
                     
+                    # Create anchor for linking
+                    anchor_name = self._create_anchor_name(heading_text)
+                    
                     # Apply markdown formatting to headings
                     heading_text_formatted = self._apply_markdown_formatting(heading_text)
                     
+                    # Add anchor to heading for linking
+                    heading_with_anchor = f'<a name="{anchor_name}"/>{heading_text_formatted}'
+                    
                     style_name = f'Heading{min(level, 6)}Dynamic'
-                    heading_paragraph = Paragraph(heading_text_formatted, styles[style_name])
+                    heading_paragraph = Paragraph(heading_with_anchor, styles[style_name])
                     story.append(heading_paragraph)
                     
                     # Store heading info for TOC

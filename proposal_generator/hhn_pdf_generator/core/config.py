@@ -14,7 +14,7 @@ class Config:
     # Color scheme
     COLORS = {
         'primary': Color(0.0, 0.2, 0.4),      # HHN Dark blue
-        'secondary': Color(0.6, 0.6, 0.6),    # Gray
+        'secondary': Color(0.0, 0.0, 0.0),    # Black (changed from Gray)
         'accent': Color(0.0, 0.4, 0.8),       # Bright blue
         'light_gray': Color(0.9, 0.9, 0.9),   # Very light gray
         'unity_blue': Color(0.0, 0.3, 0.6)    # UniTyLab blue
