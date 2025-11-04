@@ -150,12 +150,8 @@ class MarkdownParser:
                     heading_paragraph = Paragraph(heading_with_anchor, styles[style_name])
                     story.append(heading_paragraph)
                     
-                    # Store heading info for TOC
-                    if not (level == 1 and document_info and heading_text == document_info.get('title', '')):
-                        self.toc_items.append({
-                            'level': level,
-                            'text': heading_text
-                        })
+                    # Note: toc_items are already extracted in extract_toc_items()
+                    # Do not add them again here to avoid duplicates
                     
                     story.append(Spacer(1, 0.3*cm))
             
