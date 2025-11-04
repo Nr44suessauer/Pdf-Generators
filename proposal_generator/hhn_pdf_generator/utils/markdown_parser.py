@@ -77,7 +77,7 @@ class MarkdownParser:
                         'page': None  # Will be filled during PDF generation
                     })
     
-    def parse_markdown_content(self, content, styles, document_info=None):
+    def parse_markdown_content(self, content, styles, document_info=None, doc_template=None):
         """Parse markdown content dynamically"""
         story = []
         lines = content.split('\n')
@@ -134,6 +134,11 @@ class MarkdownParser:
                     
                     # Create anchor for linking
                     anchor_name = self._create_anchor_name(heading_text)
+                    
+                    # Add anchor tracker if doc_template is provided
+                    if doc_template:
+                        from ..utils.page_tracker import AnchorTracker
+                        story.append(AnchorTracker(anchor_name, doc_template))
                     
                     # Apply markdown formatting to headings
                     heading_text_formatted = self._apply_markdown_formatting(heading_text)

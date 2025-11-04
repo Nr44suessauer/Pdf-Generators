@@ -7,7 +7,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.platypus import Spacer, PageBreak
 
-from ..core.template import CustomDocTemplate
+from ..core.template import CustomDocTemplate, PageTrackingDocTemplate
 from ..core.styles import StyleManager
 from ..core.config import Config
 from ..utils.logo_handler import LogoHandler
@@ -33,13 +33,27 @@ class UniversalMarkdownToPDF:
         self.colors = Config.COLORS
     
     def create_header_footer(self, canvas, doc):
-        """Create professional header and footer with logos"""
+        """Create professional header and footer with logos and page numbers"""
         canvas.saveState()
         
+        page_num = canvas.getPageNumber()
+        
         # Skip header/footer on title page (page 1)
-        if canvas.getPageNumber() == 1:
+        if page_num == 1:
             canvas.restoreState()
             return
+        
+        # Calculate effective page number (TOC pages don't count as content pages)
+        # If TOC is on title page: page 2+ becomes content page 1+
+        # If TOC is on separate page: page 3+ becomes content page 1+
+        toc_on_title_page = self.yaml_parser.document_info.get('toc_on_title_page', False)
+        if toc_on_title_page:
+            content_page_num = page_num - 1  # Page 2 becomes page 1
+        else:
+            content_page_num = page_num - 2  # Page 3 becomes page 1
+        
+        # Only show page numbers on content pages (not on TOC-only pages)
+        show_page_number = content_page_num > 0
         
         # Footer with university info and logos
         canvas.setFont('Helvetica', 8)
@@ -74,6 +88,12 @@ class UniversalMarkdownToPDF:
             canvas.setFont('Helvetica', 7)
             canvas.drawRightString(A4[0]-2*cm, 1.0*cm, "UniTyLab")
             canvas.drawRightString(A4[0]-2*cm, 0.7*cm, "University Technology Lab")
+        
+        # Add page number in center of footer (only for content pages)
+        if show_page_number:
+            canvas.setFont('Helvetica', 9)
+            canvas.setFillColor(self.colors['primary'])
+            canvas.drawCentredString(A4[0]/2, 0.8*cm, f"Page {content_page_num}")
         
         canvas.restoreState()
     
@@ -124,9 +144,17 @@ class UniversalMarkdownToPDF:
         self.logo_handler.download_logos()
         
         try:
-            # Create PDF with custom template
-            doc = CustomDocTemplate(
-                output_file,
+            # Two-pass generation for accurate TOC page numbers
+            print("🔨 Building PDF with accurate page numbers (2-pass system)...")
+            
+            # First pass: Generate without page numbers in TOC to determine actual page numbers
+            print("  ↳ First pass: Determining page numbers...")
+            temp_output = output_file.replace('.pdf', '_temp.pdf')
+            
+            # Create PDF with page tracking template
+            from .template import PageTrackingDocTemplate
+            doc = PageTrackingDocTemplate(
+                temp_output,
                 pdf_generator=self,
                 pagesize=A4,
                 rightMargin=2.5*cm,
@@ -138,76 +166,169 @@ class UniversalMarkdownToPDF:
             # Create styles
             styles = self.style_manager.create_styles()
             
-            # Build document
-            story = []
+            # Build story for first pass
+            story = self._build_story_first_pass(styles, content, doc)
             
-            print("📄 Creating title page...")
-            title_generator = TitlePageGenerator(
-                self.yaml_parser.student_info,
-                self.yaml_parser.document_info,
-                self.yaml_parser.university_info,
-                self.yaml_parser.table_labels,
-                self.logo_handler
-            )
-            story.extend(title_generator.create_title_page(styles))
+            # Build first pass
+            doc.build(story)
             
-            # Check if TOC should be on the same page or separate page
-            toc_on_title_page = self.yaml_parser.document_info.get('toc_on_title_page', False)
+            # Get tracked page numbers
+            page_tracker = doc.get_page_tracker()
+            print(f"  ↳ Tracked {len(page_tracker)} headings")
             
-            print("📝 Processing markdown content...")
-            content_story = self.markdown_parser.parse_markdown_content(
-                content, styles, self.yaml_parser.document_info
-            )
+            # Second pass: Generate final PDF with correct TOC page numbers
+            print("  ↳ Second pass: Creating final PDF with correct page numbers...")
             
-            print("📋 Creating table of contents...")
+            # Update TOC generator with actual page numbers
             toc_generator = TOCGenerator(
                 self.markdown_parser.toc_items,
                 self.yaml_parser.document_info
             )
-            toc = toc_generator.create_table_of_contents(styles)
+            toc_generator.set_actual_page_numbers(page_tracker)
             
-            if toc:
-                if toc_on_title_page:
-                    # Add TOC on the same page as title page
-                    print("  ↳ Adding TOC on title page")
-                    story.append(Spacer(1, 1*cm))  # Add some space
-                    story.extend(toc)
-                    story.append(PageBreak())  # Page break after title+TOC
-                else:
-                    # Add TOC on separate page
-                    print("  ↳ Adding TOC on separate page")
-                    story.append(PageBreak())  # Page break after title page
-                    story.extend(toc)
-                    story.append(PageBreak())  # Page break after TOC
-            else:
-                story.append(PageBreak())  # Just page break after title if no TOC
+            # Create final PDF
+            doc_final = PageTrackingDocTemplate(
+                output_file,
+                pdf_generator=self,
+                pagesize=A4,
+                rightMargin=2.5*cm,
+                leftMargin=2.5*cm,
+                topMargin=3*cm,
+                bottomMargin=2.5*cm
+            )
             
-            # Add the processed content
-            story.extend(content_story)
+            # Build final story with accurate TOC
+            story_final = self._build_story_final_pass(styles, content, toc_generator)
             
-            print("🔨 Building PDF...")
-            doc.build(story)
+            # Build final PDF
+            doc_final.build(story_final)
+            
+            # Cleanup temp file
+            if os.path.exists(temp_output):
+                os.remove(temp_output)
             
             print(f"✅ PDF successfully generated: {output_file}")
             print()
-            print("📊 Document structure:")
-            
-            if self.markdown_parser.toc_items and toc_on_title_page:
-                print("   • Page 1: Title page with student information AND table of contents")
-                print("   • Page 2+: Dynamic content from markdown")
-            elif self.markdown_parser.toc_items:
-                print("   • Page 1: Title page with student information")
-                print("   • Page 2: Table of contents")
-                print("   • Page 3+: Dynamic content from markdown")
-            else:
-                print("   • Page 1: Title page with student information")
-                print("   • Page 2+: Dynamic content from markdown")
-            print("   • Header: Clean design without logos")
-            print("   • Footer: HHN and UniTyLab logos with university info")
-            print("   • Design: Dynamic styling based on content structure")
-            print()
+            self._print_document_structure()
             print(f"🎉 SUCCESS! Your document is ready at: {output_file}")
             
         finally:
             # Cleanup
             self.logo_handler.cleanup_logos()
+    
+    def _build_story_first_pass(self, styles, content, doc_template):
+        """Build story for first pass (without TOC page numbers)"""
+        story = []
+        
+        print("� Creating title page...")
+        title_generator = TitlePageGenerator(
+            self.yaml_parser.student_info,
+            self.yaml_parser.document_info,
+            self.yaml_parser.university_info,
+            self.yaml_parser.table_labels,
+            self.logo_handler
+        )
+        story.extend(title_generator.create_title_page(styles))
+        
+        # Check if TOC should be on the same page or separate page
+        toc_on_title_page = self.yaml_parser.document_info.get('toc_on_title_page', False)
+        
+        print("📝 Processing markdown content...")
+        content_story = self.markdown_parser.parse_markdown_content(
+            content, styles, self.yaml_parser.document_info, doc_template
+        )
+        
+        print("📋 Creating table of contents...")
+        toc_generator = TOCGenerator(
+            self.markdown_parser.toc_items,
+            self.yaml_parser.document_info
+        )
+        toc = toc_generator.create_table_of_contents(styles, use_actual_pages=False)
+        
+        if toc:
+            if toc_on_title_page:
+                # Add TOC on the same page as title page
+                print("  ↳ Adding TOC on title page")
+                story.append(Spacer(1, 1*cm))  # Add some space
+                story.extend(toc)
+                story.append(PageBreak())  # Page break after title+TOC
+            else:
+                # Add TOC on separate page
+                print("  ↳ Adding TOC on separate page")
+                story.append(PageBreak())  # Page break after title page
+                story.extend(toc)
+                story.append(PageBreak())  # Page break after TOC
+        else:
+            story.append(PageBreak())  # Just page break after title if no TOC
+        
+        # Add the processed content
+        story.extend(content_story)
+        
+        return story
+    
+    def _build_story_final_pass(self, styles, content, toc_generator):
+        """Build story for final pass (with correct TOC page numbers)"""
+        story = []
+        
+        print("📄 Creating title page...")
+        title_generator = TitlePageGenerator(
+            self.yaml_parser.student_info,
+            self.yaml_parser.document_info,
+            self.yaml_parser.university_info,
+            self.yaml_parser.table_labels,
+            self.logo_handler
+        )
+        story.extend(title_generator.create_title_page(styles))
+        
+        # Check if TOC should be on the same page or separate page
+        toc_on_title_page = self.yaml_parser.document_info.get('toc_on_title_page', False)
+        
+        print("📝 Processing markdown content...")
+        content_story = self.markdown_parser.parse_markdown_content(
+            content, styles, self.yaml_parser.document_info
+        )
+        
+        print("📋 Creating table of contents with actual page numbers...")
+        toc = toc_generator.create_table_of_contents(styles, use_actual_pages=True)
+        
+        if toc:
+            if toc_on_title_page:
+                # Add TOC on the same page as title page
+                print("  ↳ Adding TOC on title page")
+                story.append(Spacer(1, 1*cm))  # Add some space
+                story.extend(toc)
+                story.append(PageBreak())  # Page break after title+TOC
+            else:
+                # Add TOC on separate page
+                print("  ↳ Adding TOC on separate page")
+                story.append(PageBreak())  # Page break after title page
+                story.extend(toc)
+                story.append(PageBreak())  # Page break after TOC
+        else:
+            story.append(PageBreak())  # Just page break after title if no TOC
+        
+        # Add the processed content
+        story.extend(content_story)
+        
+        return story
+    
+    def _print_document_structure(self):
+        """Print document structure information"""
+        print("📊 Document structure:")
+        
+        toc_on_title_page = self.yaml_parser.document_info.get('toc_on_title_page', False)
+        if self.markdown_parser.toc_items and toc_on_title_page:
+            print("   • Page 1: Title page with student information AND table of contents (with accurate page numbers)")
+            print("   • Page 2+: Dynamic content from markdown (numbered starting from 1)")
+        elif self.markdown_parser.toc_items:
+            print("   • Page 1: Title page with student information")
+            print("   • Page 2: Table of contents (with accurate page numbers)")
+            print("   • Page 3+: Dynamic content from markdown (numbered starting from 1)")
+        else:
+            print("   • Page 1: Title page with student information")
+            print("   • Page 2+: Dynamic content from markdown (numbered starting from 1)")
+        print("   • Header: Clean design without logos")
+        print("   • Footer: HHN and UniTyLab logos with university info + page numbers")
+        print("   • Design: Dynamic styling based on content structure")
+        print("   • TOC: Interactive links with ACCURATE page numbers (2-pass system)")
+        print()
