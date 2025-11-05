@@ -5,6 +5,7 @@ Markdown to PDF content parser
 import re
 from reportlab.platypus import Paragraph, Spacer
 from reportlab.lib.units import cm
+from .text_utils import create_anchor_name
 
 
 class MarkdownParser:
@@ -12,13 +13,6 @@ class MarkdownParser:
     
     def __init__(self):
         self.toc_items = []
-    
-    def _create_anchor_name(self, text):
-        """Create a clean anchor name from heading text"""
-        # Remove special characters and replace spaces with underscores
-        anchor = re.sub(r'[^\w\s-]', '', text)
-        anchor = re.sub(r'[-\s]+', '_', anchor)
-        return anchor.lower()
     
     def detect_document_info(self, content, document_info):
         """Automatically detect document information from markdown content"""
@@ -133,7 +127,7 @@ class MarkdownParser:
                         continue
                     
                     # Create anchor for linking
-                    anchor_name = self._create_anchor_name(heading_text)
+                    anchor_name = create_anchor_name(heading_text)
                     
                     # Add anchor tracker if doc_template is provided
                     if doc_template:

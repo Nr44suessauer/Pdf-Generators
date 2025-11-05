@@ -4,7 +4,7 @@ Table of Contents generator for HHN PDF
 
 from reportlab.platypus import Paragraph, Spacer
 from reportlab.lib.units import cm
-import re
+from ..utils.text_utils import create_anchor_name
 
 
 class TOCGenerator:
@@ -14,13 +14,6 @@ class TOCGenerator:
         self.toc_items = toc_items
         self.document_info = document_info
         self.actual_page_numbers = {}  # Will store actual page numbers from first pass
-
-    def _create_anchor_name(self, text):
-        """Create a clean anchor name from heading text"""
-        # Remove special characters and replace spaces with underscores
-        anchor = re.sub(r'[^\w\s-]', '', text)
-        anchor = re.sub(r'[-\s]+', '_', anchor)
-        return anchor.lower()
 
     def set_actual_page_numbers(self, page_numbers):
         """Set the actual page numbers determined during first PDF pass"""
@@ -47,7 +40,7 @@ class TOCGenerator:
                     continue
 
                 # Create anchor name for linking
-                anchor_name = self._create_anchor_name(text)
+                anchor_name = create_anchor_name(text)
 
                 # Get actual page number from first pass
                 page_num = self.actual_page_numbers.get(anchor_name, 1)
@@ -76,7 +69,7 @@ class TOCGenerator:
                     continue
 
                 # Create anchor name for linking
-                anchor_name = self._create_anchor_name(text)
+                anchor_name = create_anchor_name(text)
 
                 # Create TOC entry without page number
                 indent = "  " * max(0, level - 1)

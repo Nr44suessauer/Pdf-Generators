@@ -7,7 +7,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.platypus import Spacer, PageBreak
 
-from ..core.template import CustomDocTemplate, PageTrackingDocTemplate
+from ..core.template import PageTrackingDocTemplate
 from ..core.styles import StyleManager
 from ..core.config import Config
 from ..utils.logo_handler import LogoHandler
@@ -153,7 +153,6 @@ class UniversalMarkdownToPDF:
             temp_output = output_file.replace('.pdf', '_temp.pdf')
 
             # Create PDF with page tracking template
-            from .template import PageTrackingDocTemplate
             doc = PageTrackingDocTemplate(
                 temp_output,
                 pdf_generator=self,

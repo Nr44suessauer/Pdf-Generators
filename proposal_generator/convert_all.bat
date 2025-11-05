@@ -31,14 +31,3 @@ echo PDFs wurden im Output\ Ordner gespeichert.
 echo ================================================================
 echo.
 pause
-
-echo ================================================================
-echo Konvertierung abgeschlossen
-echo ================================================================
-echo Erfolgreich: !success! Dateien
-echo Fehler: !errors! Dateien
-echo.
-echo PDFs wurden im Output\ Ordner gespeichert.
-echo.
-
-pause

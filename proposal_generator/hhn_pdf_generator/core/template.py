@@ -54,7 +54,3 @@ class PageTrackingDocTemplate(BaseDocTemplate):
     def get_page_tracker(self):
         """Get the collected page tracking information"""
         return self.page_tracker
-
-
-# Keep backward compatibility
-CustomDocTemplate = PageTrackingDocTemplate
