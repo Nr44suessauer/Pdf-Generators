@@ -1,0 +1,22 @@
+# HHN PDF Generator Dependencies
+# Version: 2.0.0
+
+# Core PDF Generation
+reportlab>=3.6.0
+
+# YAML Front-Matter Processing  
+pyyaml>=6.0
+
+# HTTP Requests for Logo Download
+requests>=2.28.0
+
+# Image Processing
+pillow>=9.0.0
+
+# Standard library modules (included in Python):
+# - os
+# - tempfile  
+# - re
+# - datetime
+# - argparse
+# - sys
