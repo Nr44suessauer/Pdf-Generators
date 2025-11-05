@@ -14,6 +14,7 @@ class YAMLParser:
         self.document_info = {}
         self.university_info = {}
         self.table_labels = {}
+        self.flags = {}
     
     def parse_yaml_frontmatter(self, content):
         """Parse YAML front matter from markdown content and return content without front matter"""
@@ -47,6 +48,7 @@ class YAMLParser:
             self._parse_document_info(yaml_data)
             self._parse_university_info(yaml_data)
             self._parse_table_labels(yaml_data)
+            self._parse_flags(yaml_data)
         
         except yaml.YAMLError as e:
             raise ValueError(f"Error parsing YAML front matter: {e}")
@@ -101,6 +103,27 @@ class YAMLParser:
                 self.document_info[field] = False  # Default to False
         
         print(f"📄 Loaded document info: {self.document_info.get('title', 'Auto-detected')}")
+    
+    def _parse_flags(self, yaml_data):
+        """Parse flags information from YAML data"""
+        if 'flags' in yaml_data:
+            flags_data = yaml_data['flags']
+            
+            for field in Config.OPTIONAL_FLAGS_FIELDS:
+                if field in flags_data and flags_data[field] is not None:
+                    self.flags[field] = bool(flags_data[field])
+                else:
+                    self.flags[field] = False  # Default to False
+            
+            print(f"🚩 Loaded flags: {sum(self.flags.values())} enabled")
+            
+            # Merge flags into document_info for backward compatibility
+            for flag, value in self.flags.items():
+                self.document_info[flag] = value
+        else:
+            # Initialize empty flags
+            for field in Config.OPTIONAL_FLAGS_FIELDS:
+                self.flags[field] = False
     
     def _parse_university_info(self, yaml_data):
         """Parse university information from YAML data"""

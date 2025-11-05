@@ -1,5 +1,4 @@
 ---
-
 # Table Labels (for student information table)
 table_labels:
   author: "Author:"
@@ -13,7 +12,6 @@ table_labels:
   academic_year: "Academic Year:"
   submission_date: "Submission Date:"
 
-
 # Student Information
 student:
   name: "Marc Nauendorf"
@@ -21,7 +19,7 @@ student:
   program: "Software engineering Master"
   specialization: "HCI"
   supervisor: "Prof. Dr. Gerrit Meixner"
-  co_supervisor: "-"
+  co_supervisor: "Prof. Dr. Co-Supervisor"
   academic_year: "2024/2025"
   research_lab: "UniTyLab"
 
@@ -31,7 +29,13 @@ document:
   subtitle: "Development and implementation of a modular C# control and workflow software for a photogrammetry 3D large object scanner"
   type: "Master Thesis Proposal"
   submission_date: "November 2025"
-  toc_on_title_page: true
+
+# Flags
+flags:
+  toc_on_table_page: true
+  signature_line: true
+  supervisor_signature: true
+  co_supervisor_signature: true
 
 # University Information
 university:

@@ -39,6 +39,9 @@ class Config:
     OPTIONAL_STUDENT_FIELDS = ['research_lab']
     REQUIRED_DOC_FIELDS = ['type', 'submission_date']
     OPTIONAL_DOC_FIELDS = ['title', 'subtitle']
-    OPTIONAL_BOOL_FIELDS = ['toc_on_title_page']
+    OPTIONAL_BOOL_FIELDS = ['toc_on_table_page', 'signature_line', 'supervisor_signature', 'co_supervisor_signature']
     REQUIRED_UNI_FIELDS = ['name', 'subtitle', 'faculty']
     OPTIONAL_UNI_FIELDS = ['department']
+    
+    # New flags section fields
+    OPTIONAL_FLAGS_FIELDS = ['toc_on_table_page', 'signature_line', 'supervisor_signature', 'co_supervisor_signature']

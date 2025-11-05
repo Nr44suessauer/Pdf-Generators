@@ -15,6 +15,7 @@ from ..utils.yaml_parser import YAMLParser
 from ..utils.markdown_parser import MarkdownParser
 from ..generators.title_page import TitlePageGenerator
 from ..generators.toc import TOCGenerator
+from ..generators.signature import SignatureLineGenerator
 
 
 class UniversalMarkdownToPDF:
@@ -46,8 +47,8 @@ class UniversalMarkdownToPDF:
         # Calculate effective page number (TOC pages don't count as content pages)
         # If TOC is on title page: page 2+ becomes content page 1+
         # If TOC is on separate page: page 3+ becomes content page 1+
-        toc_on_title_page = self.yaml_parser.document_info.get('toc_on_title_page', False)
-        if toc_on_title_page:
+        toc_on_table_page = self.yaml_parser.document_info.get('toc_on_table_page', False)
+        if toc_on_table_page:
             content_page_num = page_num - 1  # Page 2 becomes page 1
         else:
             content_page_num = page_num - 2  # Page 3 becomes page 1
@@ -231,10 +232,10 @@ class UniversalMarkdownToPDF:
         story.extend(title_generator.create_title_page(styles))
 
         # Check if TOC should be on the same page or separate page
-        toc_on_title_page = self.yaml_parser.document_info.get('toc_on_title_page', False)
+        toc_on_table_page = self.yaml_parser.document_info.get('toc_on_table_page', False)
 
         # Add appropriate page breaks to match final structure, but NO TOC content
-        if not toc_on_title_page:
+        if not toc_on_table_page:
             # If TOC will be on separate page, add page break to match structure
             story.append(PageBreak())  # Page break after title page (for TOC page)
             story.append(PageBreak())  # Page break after TOC page (for content)
@@ -249,6 +250,20 @@ class UniversalMarkdownToPDF:
 
         # Add the processed content (this is where page tracking happens)
         story.extend(content_story)
+        
+        # Add signatures (author and supervisors integrated)
+        signature_line_enabled = self.yaml_parser.document_info.get('signature_line', False)
+        supervisor_signature_enabled = self.yaml_parser.document_info.get('supervisor_signature', False)
+        co_supervisor_signature_enabled = self.yaml_parser.document_info.get('co_supervisor_signature', False)
+        
+        if signature_line_enabled or supervisor_signature_enabled or co_supervisor_signature_enabled:
+            signature_generator = SignatureLineGenerator(
+                self.yaml_parser.student_info,
+                self.yaml_parser.document_info,
+                self.colors
+            )
+            signature_story = signature_generator.create_signature_line(styles)
+            story.extend(signature_story)
 
         return story
 
@@ -267,7 +282,7 @@ class UniversalMarkdownToPDF:
         story.extend(title_generator.create_title_page(styles))
 
         # Check if TOC should be on the same page or separate page
-        toc_on_title_page = self.yaml_parser.document_info.get('toc_on_title_page', False)
+        toc_on_table_page = self.yaml_parser.document_info.get('toc_on_table_page', False)
 
         print("📝 Processing markdown content...")
         content_story = self.markdown_parser.parse_markdown_content(
@@ -278,7 +293,7 @@ class UniversalMarkdownToPDF:
         toc = toc_generator.create_table_of_contents(styles, use_actual_pages=True)
 
         if toc:
-            if toc_on_title_page:
+            if toc_on_table_page:
                 # Add TOC on the same page as title page
                 print("  ↳ Adding TOC on title page")
                 story.append(Spacer(1, 1*cm))  # Add some space
@@ -295,6 +310,21 @@ class UniversalMarkdownToPDF:
 
         # Add the processed content
         story.extend(content_story)
+        
+        # Add signatures (author and supervisors integrated)
+        signature_line_enabled = self.yaml_parser.document_info.get('signature_line', False)
+        supervisor_signature_enabled = self.yaml_parser.document_info.get('supervisor_signature', False)
+        co_supervisor_signature_enabled = self.yaml_parser.document_info.get('co_supervisor_signature', False)
+        
+        if signature_line_enabled or supervisor_signature_enabled or co_supervisor_signature_enabled:
+            print("✍️ Adding signatures...")
+            signature_generator = SignatureLineGenerator(
+                self.yaml_parser.student_info,
+                self.yaml_parser.document_info,
+                self.colors
+            )
+            signature_story = signature_generator.create_signature_line(styles)
+            story.extend(signature_story)
 
         return story
 
@@ -302,8 +332,8 @@ class UniversalMarkdownToPDF:
         """Print document structure information"""
         print("📊 Document structure:")
 
-        toc_on_title_page = self.yaml_parser.document_info.get('toc_on_title_page', False)
-        if self.markdown_parser.toc_items and toc_on_title_page:
+        toc_on_table_page = self.yaml_parser.document_info.get('toc_on_table_page', False)
+        if self.markdown_parser.toc_items and toc_on_table_page:
             print("   • Page 1: Title page with student information AND table of contents (with accurate page numbers)")
             print("   • Page 2+: Dynamic content from markdown (numbered starting from 1)")
         elif self.markdown_parser.toc_items:

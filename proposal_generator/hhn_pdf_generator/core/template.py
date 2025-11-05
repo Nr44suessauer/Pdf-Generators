@@ -41,8 +41,8 @@ class PageTrackingDocTemplate(BaseDocTemplate):
         """Track an anchor and its page number"""
         # Calculate actual content page number (subtract TOC pages)
         if self.pdf_generator and hasattr(self.pdf_generator, 'yaml_parser'):
-            toc_on_title_page = self.pdf_generator.yaml_parser.document_info.get('toc_on_title_page', False)
-            if toc_on_title_page:
+            toc_on_table_page = self.pdf_generator.yaml_parser.document_info.get('toc_on_table_page', False)
+            if toc_on_table_page:
                 content_page = max(1, self.current_page - 1 + page_offset)
             else:
                 content_page = max(1, self.current_page - 2 + page_offset)
