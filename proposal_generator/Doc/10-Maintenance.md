@@ -1,9 +1,9 @@
 # 🔧 Maintenance & Support
 
-**Datei:** 10-Maintenance.md  
+**File:** 10-Maintenance.md  
 **Version:** 2.0.0  
 
-## 📋 Inhalt
+## 📋 Contents
 
 1. [Maintenance Philosophy](#maintenance-philosophy)
 2. [Version Management](#version-management)
@@ -1564,4 +1564,4 @@ if __name__ == "__main__":
 
 ---
 
-**[⬅️ Zurück zu Testing](09-Testing.md) | [Zurück zum Index ➡️](README.md)**
+**[⬅️ Back to Testing](09-Testing.md) | [Back to Index ➡️](README.md)**

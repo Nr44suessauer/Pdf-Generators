@@ -1,9 +1,9 @@
 # 🎨 Design Patterns
 
-**Datei:** 03-Design-Patterns.md  
+**File:** 03-Design-Patterns.md  
 **Version:** 2.0.0  
 
-## 📋 Inhalt
+## 📋 Contents
 
 1. [Strategy Pattern](#strategy-pattern)
 2. [Template Method Pattern](#template-method-pattern)

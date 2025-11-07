@@ -1,58 +1,58 @@
-# 📚 HHN PDF Generator - Technische Dokumentation
+# 📚 HHN PDF Generator - Technical Documentation
 
 **Version:** 2.0.0  
-**Datum:** November 2025  
-**Autor:** HHN UniTyLab  
+**Date:** November 2025  
+**Author:** HHN UniTyLab  
 
-## 📋 Dokumentationsübersicht
+## 📋 Documentation Overview
 
-Diese technische Dokumentation ist in thematische Module unterteilt:
+This technical documentation is divided into thematic modules:
 
-### 🏗️ Architektur & Design
-- **[01-System-Architecture.md](01-System-Architecture.md)** - Systemarchitektur und High-Level Design
-- **[02-Module-Structure.md](02-Module-Structure.md)** - Modulstruktur und Abhängigkeiten
-- **[03-Design-Patterns.md](03-Design-Patterns.md)** - Verwendete Design Patterns
+### 🏗️ Architecture & Design
+- **[01-System-Architecture.md](01-System-Architecture.md)** - System architecture and high-level design
+- **[02-Module-Structure.md](02-Module-Structure.md)** - Module structure and dependencies
+- **[03-Design-Patterns.md](03-Design-Patterns.md)** - Design patterns used
 
-### 🔄 Datenverarbeitung
-- **[04-Data-Flow.md](04-Data-Flow.md)** - Datenfluss und Processing Pipeline
-- **[05-Core-Components.md](05-Core-Components.md)** - Kernkomponenten und APIs
+### 🔄 Data Processing
+- **[04-Data-Flow.md](04-Data-Flow.md)** - Data flow and processing pipeline
+- **[05-Core-Components.md](05-Core-Components.md)** - Core components and APIs
 
-### 🛠️ Implementierung
-- **[06-Dependencies.md](06-Dependencies.md)** - Abhängigkeiten und externe Libraries
-- **[07-Performance.md](07-Performance.md)** - Performance-Charakteristika und Optimierung
+### 🛠️ Implementation
+- **[06-Dependencies.md](06-Dependencies.md)** - Dependencies and external libraries
+- **[07-Performance.md](07-Performance.md)** - Performance characteristics and optimization
 
-### 🚀 Betrieb & Wartung
-- **[08-Deployment.md](08-Deployment.md)** - Deployment und Systemanforderungen
-- **[09-Testing.md](09-Testing.md)** - Testing-Strategien und Qualitätssicherung
-- **[10-Maintenance.md](10-Maintenance.md)** - Wartung und Erweiterungen
+### 🚀 Operations & Maintenance
+- **[08-Deployment.md](08-Deployment.md)** - Deployment and system requirements
+- **[09-Testing.md](09-Testing.md)** - Testing strategies and quality assurance
+- **[10-Maintenance.md](10-Maintenance.md)** - Maintenance and extensions
 
 ---
 
-## 🎯 Projektüberblick
+## 🎯 Project Overview
 
 Das **HHN PDF Generator** System ist eine modulare Python-Anwendung zur Konvertierung von Markdown-Dokumenten in professionelle PDF-Dokumente mit Hochschul-Corporate-Design. 
 
-### 🔑 Kernfunktionen
-- ✅ **YAML Front-Matter Parsing** für strukturierte Metadaten
+### 🔑 Core Features
+- ✅ **YAML Front-Matter Parsing** for structured metadata
 - ✅ **Markdown zu PDF Konvertierung** mit Corporate Design
-- ✅ **2-Pass-Rendering** für akkurate Seitennummerierung
-- ✅ **Automatische TOC-Generierung** mit interaktiven Links
+- ✅ **2-Pass Rendering** for accurate page numbering
+- ✅ **Automatic TOC generation** with interactive links
 - ✅ **Logo-Integration** mit automatischem Download
-- ✅ **Signaturfelder** für akademische Dokumente
+- ✅ **Signature fields** for academic documents
 
-### 🏛️ Technische Highlights
-- **Modulare Architektur** mit klarer Trennung der Verantwortlichkeiten
-- **Strategy Pattern** für austauschbare Content-Generatoren
-- **2-Pass PDF Generation** für präzise Seitennummerierung
+### 🏛️ Technical Highlights
+- **Modular Architecture** with clear separation of concerns
+- **Strategy Pattern** for exchangeable content generators
+- **2-Pass PDF Generation** for precise page numbering
 - **Custom ReportLab Template** mit Page-Tracking
-- **Robuste Fehlerbehandlung** und Ressourcen-Management
+- **Robust Error Handling** and resource management
 
 ### 📊 Systemmetriken (v2.0.0)
 ```
 Codebase:           ~2,800 Zeilen
 Module:             17 Python-Dateien
-Abhängigkeiten:     4 externe Packages
-Performance:        O(n) Komplexität
+Dependencies:       4 external packages
+Performance:        O(n) Complexity
 Memory Usage:       ~50-100MB pro Dokument
 ```
 
@@ -60,24 +60,24 @@ Memory Usage:       ~50-100MB pro Dokument
 
 ## 🗺️ Navigation
 
-### Für Entwickler
-1. Beginnen Sie mit **[System Architecture](01-System-Architecture.md)** für einen Überblick
-2. Vertiefen Sie sich in **[Core Components](05-Core-Components.md)** für Implementation Details
-3. Studieren Sie **[Design Patterns](03-Design-Patterns.md)** für Architekturverständnis
+### For Developers
+1. Start with **[System Architecture](01-System-Architecture.md)** for an overview
+2. Dive into **[Core Components](05-Core-Components.md)** for implementation details
+3. Study **[Design Patterns](03-Design-Patterns.md)** for architecture understanding
 
-### Für DevOps/Deployment
-1. Lesen Sie **[Dependencies](06-Dependencies.md)** für Systemanforderungen
-2. Folgen Sie **[Deployment](08-Deployment.md)** für Setup-Anweisungen
-3. Nutzen Sie **[Performance](07-Performance.md)** für Optimierung
+### For DevOps/Deployment
+1. Read **[Dependencies](06-Dependencies.md)** for system requirements
+2. Follow **[Deployment](08-Deployment.md)** for setup instructions
+3. Use **[Performance](07-Performance.md)** for optimization
 
-### Für Wartung/Erweiterung
-1. Verstehen Sie **[Module Structure](02-Module-Structure.md)** für Codebase-Navigation
-2. Lesen Sie **[Maintenance](10-Maintenance.md)** für Erweiterungsstrategien
-3. Befolgen Sie **[Testing](09-Testing.md)** für Qualitätssicherung
+### For Maintenance/Extension
+1. Understand **[Module Structure](02-Module-Structure.md)** for codebase navigation
+2. Read **[Maintenance](10-Maintenance.md)** for extension strategies
+3. Follow **[Testing](09-Testing.md)** for quality assurance
 
 ---
 
-## 🔧 Schnellreferenz
+## 🔧 Quick Reference
 
 ### Wichtige Klassen
 ```python
@@ -89,20 +89,20 @@ PageTrackingDocTemplate    # PDF Template (template.py)
 
 ### Zentrale Konfiguration
 ```python
-Config                     # Systemkonfiguration (config.py)
+Config                     # System Configuration (config.py)
 StyleManager               # PDF-Styling (styles.py)
 ```
 
 ### Content-Generatoren
 ```python
 TitlePageGenerator         # Titelseite (title_page.py)
-TOCGenerator              # Inhaltsverzeichnis (toc.py)
+TOCGenerator              # Table of Contents (toc.py)
 SignatureLineGenerator    # Signaturen (signature.py)
 ```
 
 ---
 
-## ⚡ Quick Start für Entwickler
+## ⚡ Quick Start for Developers
 
 ```bash
 # 1. Codebase verstehen
@@ -121,6 +121,6 @@ tree hhn_pdf_generator/
 
 ---
 
-**© 2025 HHN UniTyLab - Modulare Technische Dokumentation**
+**© 2025 HHN UniTyLab - Modular Technical Documentation**
 
 *Letzte Aktualisierung: November 2025*

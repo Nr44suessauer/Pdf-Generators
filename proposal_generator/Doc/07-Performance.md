@@ -1,9 +1,9 @@
 # ⚡ Performance & Optimization
 
-**Datei:** 07-Performance.md  
+**File:** 07-Performance.md  
 **Version:** 2.0.0  
 
-## 📋 Inhalt
+## 📋 Contents
 
 1. [Performance Overview](#performance-overview)
 2. [2-Pass System Optimization](#2-pass-system-optimization)

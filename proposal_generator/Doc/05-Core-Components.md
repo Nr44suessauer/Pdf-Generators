@@ -1,9 +1,9 @@
-# 🧩 Kernkomponenten
+# 🧩 Core Components
 
-**Datei:** 05-Core-Components.md  
+**File:** 05-Core-Components.md  
 **Version:** 2.0.0  
 
-## 📋 Inhalt
+## 📋 Contents
 
 1. [UniversalMarkdownToPDF](#universalmarkdowntopdf)
 2. [YAMLParser](#yamlparser)

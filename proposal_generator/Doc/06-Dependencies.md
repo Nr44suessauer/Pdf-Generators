@@ -1,9 +1,9 @@
 # 🔗 Dependencies & Environment
 
-**Datei:** 06-Dependencies.md  
+**File:** 06-Dependencies.md  
 **Version:** 2.0.0  
 
-## 📋 Inhalt
+## 📋 Contents
 
 1. [Python Environment](#python-environment)
 2. [Core Dependencies](#core-dependencies)

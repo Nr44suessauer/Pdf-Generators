@@ -1,9 +1,9 @@
 # 🚀 Deployment & Configuration
 
-**Datei:** 08-Deployment.md  
+**File:** 08-Deployment.md  
 **Version:** 2.0.0  
 
-## 📋 Inhalt
+## 📋 Contents
 
 1. [Deployment Overview](#deployment-overview)
 2. [Installation Methods](#installation-methods)

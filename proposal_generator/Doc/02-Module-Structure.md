@@ -1,20 +1,20 @@
-# 📁 Modulstruktur
+# 📁 Module Structure
 
-**Datei:** 02-Module-Structure.md  
+**File:** 02-Module-Structure.md  
 **Version:** 2.0.0  
 
-## 📋 Inhalt
+## 📋 Contents
 
 1. [Package Hierarchy](#package-hierarchy)
 2. [Dependency Graph](#dependency-graph)
-3. [Module Beschreibungen](#module-beschreibungen)
-4. [Import-Strategien](#import-strategien)
+3. [Module Descriptions](#module-descriptions)
+4. [Import Strategies](#import-strategies)
 
 ---
 
 ## 📂 Package Hierarchy
 
-### Verzeichnisstruktur
+### Directory Structure
 
 ```
 hhn_pdf_generator/
@@ -27,38 +27,38 @@ hhn_pdf_generator/
 │   ├── error handling         # Exception management
 │   └── UniversalMarkdownToPDF # Core generator usage
 │
-├── core/                       # 🧠 Kernfunktionalität
-│   ├── generator.py           # 🔧 Haupt-PDF-Generator
-│   ├── config.py              # ⚙️ Systemkonfiguration
-│   ├── styles.py              # 🎨 PDF-Stil-Management
+├── core/                       # 🧠 Core Functionality
+│   ├── generator.py           # 🔧 Main PDF Generator
+│   ├── config.py              # ⚙️ System Configuration
+│   ├── styles.py              # 🎨 PDF Style Management
 │   └── template.py            # 📄 Custom Document Template
 │
-├── utils/                      # 🛠️ Utility-Module
+├── utils/                      # 🛠️ Utility Modules
 │   ├── yaml_parser.py         # 📝 YAML Front-Matter Parser
 │   ├── markdown_parser.py     # 📖 Markdown Content Parser
 │   ├── logo_handler.py        # 🖼️ Logo Download & Processing
-│   ├── page_tracker.py        # 📊 Seitennummer-Tracking
-│   └── text_utils.py          # 📝 Text Utility Funktionen
+│   ├── page_tracker.py        # 📊 Page Number Tracking
+│   └── text_utils.py          # 📝 Text Utility Functions
 │
-└── generators/                 # 🏗️ Content-Generatoren
-    ├── title_page.py          # 📋 Titelseite Generator
-    ├── toc.py                 # 📑 Inhaltsverzeichnis Generator
-    └── signature.py           # ✍️ Signatur-Generator
+└── generators/                 # 🏗️ Content Generators
+    ├── title_page.py          # 📋 Title Page Generator
+    ├── toc.py                 # 📑 Table of Contents Generator
+    └── signature.py           # ✍️ Signature Generator
 ```
 
-### Package-Verantwortlichkeiten
+### Package Responsibilities
 
-| Package | Zweck | Abhängigkeiten |
+| Package | Purpose | Dependencies |
 |---------|-------|----------------|
-| **core/** | Geschäftslogik, PDF-Engine | utils/, generators/, external libs |
-| **utils/** | Hilfsfunktionen, Parser | core/config, external libs |
-| **generators/** | Content-Erstellung | utils/, core/config |
+| **core/** | Business logic, PDF engine | utils/, generators/, external libs |
+| **utils/** | Utility functions, parsers | core/config, external libs |
+| **generators/** | Content creation | utils/, core/config |
 
 ---
 
 ## 🕸️ Dependency Graph
 
-### Gesamtabhängigkeiten
+### Overall Dependencies
 
 ```
 main.py
@@ -74,7 +74,7 @@ main.py
             └── SignatureLineGenerator (generators/signature.py)
 ```
 
-### Detaillierte Modulabhängigkeiten
+### Detailed Module Dependencies
 
 ```
 core/generator.py
@@ -148,40 +148,28 @@ core/config.py
     └── reportlab.lib.colors → Color
 ```
 
-### Zirkuläre Abhängigkeiten
-
-```
-✅ KEINE zirkulären Abhängigkeiten identifiziert
-
-Validierte Pfade:
-core/config.py ←── utils/* ←── core/generator.py ✓
-core/config.py ←── generators/* ←── core/generator.py ✓  
-utils/text_utils.py ←── utils/markdown_parser.py ✓
-utils/text_utils.py ←── generators/toc.py ✓
-```
-
 ---
 
-## 📚 Module Beschreibungen
+## 📚 Module Descriptions
 
 ### Core Module
 
-#### `core/generator.py` - **Haupt-PDF-Generator**
+#### `core/generator.py` - **Main PDF Generator**
 
 ```python
 class UniversalMarkdownToPDF:
     """
-    🎯 Zentrale Orchestrierungsklasse
+    🎯 Central orchestration class
     
-    Verantwortlichkeiten:
-    ├── PDF-Generierungsprozess koordinieren
-    ├── 2-Pass-System implementieren  
-    ├── Komponenteninitialisierung
-    ├── Header/Footer-Management
-    └── Fehlerbehandlung & Cleanup
+    Responsibilities:
+    ├── Coordinate PDF generation process
+    ├── Implement 2-pass system  
+    ├── Component initialization
+    ├── Header/Footer management
+    └── Error handling & cleanup
     """
     
-    # Zentrale Methoden:
+    # Central methods:
     def __init__(self, markdown_file=None)
     def generate_pdf(self, input_file, output_file=None)
     def create_header_footer(self, canvas, doc)
@@ -189,14 +177,14 @@ class UniversalMarkdownToPDF:
     def _build_story_final_pass(...)  # Final generation
 ```
 
-#### `core/config.py` - **Systemkonfiguration**
+#### `core/config.py` - **System Configuration**
 
 ```python
 class Config:
     """
-    ⚙️ Zentrale Konfigurationsdaten
+    ⚙️ Central configuration data
     
-    Konstanten:
+    Constants:
     ├── HHN_LOGO_URL, UNITYLAB_LOGO_URL
     ├── COLORS (Corporate Design Palette)
     ├── DEFAULT_TABLE_LABELS
@@ -205,12 +193,12 @@ class Config:
     """
 ```
 
-#### `core/styles.py` - **PDF-Styling**
+#### `core/styles.py` - **PDF Styling**
 
 ```python
 class StyleManager:
     """
-    🎨 PDF-Stil-Management
+    🎨 PDF Style Management
     
     Features:
     ├── Dynamic heading styles (H1-H6)
@@ -248,9 +236,9 @@ class PageTrackingDocTemplate(BaseDocTemplate):
 ```python
 class YAMLParser:
     """
-    📝 YAML Front-Matter Verarbeitung
+    📝 YAML Front-Matter Processing
     
-    Datenstrukturen:
+    Data structures:
     ├── student_info: dict
     ├── document_info: dict  
     ├── university_info: dict
@@ -269,7 +257,7 @@ class YAMLParser:
 ```python
 class MarkdownParser:
     """
-    📖 Markdown Content Verarbeitung
+    📖 Markdown Content Processing
     
     Features:
     ├── Heading hierarchy extraction
@@ -291,7 +279,7 @@ class MarkdownParser:
 ```python
 class LogoHandler:
     """
-    🖼️ Logo Download & Verarbeitung
+    🖼️ Logo Download & Processing
     
     Features:
     ├── HTTP logo download
@@ -339,12 +327,12 @@ def create_anchor_name(text: str) -> str:
 
 ### Generators Module
 
-#### `generators/title_page.py` - **Titelseite**
+#### `generators/title_page.py` - **Title Page**
 
 ```python
 class TitlePageGenerator:
     """
-    📋 Titelseiten-Generierung
+    📋 Title Page Generation
     
     Layout:
     ├── Logo integration (HHN + UniTyLab)
@@ -359,12 +347,12 @@ class TitlePageGenerator:
     def _create_student_info_table(self)
 ```
 
-#### `generators/toc.py` - **Inhaltsverzeichnis**
+#### `generators/toc.py` - **Table of Contents**
 
 ```python
 class TOCGenerator:
     """
-    📑 Inhaltsverzeichnis-Generierung
+    📑 Table of Contents generation
     
     Features:
     ├── 2-pass page number integration
@@ -400,7 +388,7 @@ class SignatureLineGenerator:
 
 ---
 
-## 🔗 Import-Strategien
+## 🔗 Import Strategies
 
 ### Relative Imports Pattern
 
@@ -423,7 +411,7 @@ from .styles import StyleManager
 ```python
 # utils/markdown_parser.py
 def parse_markdown_content(...):
-    # Import nur bei Bedarf (vermeidet zirkuläre Abhängigkeiten)
+    # Import only when needed (avoids circular dependencies)
     if doc_template:
         from ..utils.page_tracker import AnchorTracker
         story.append(AnchorTracker(anchor_name, doc_template))
@@ -434,7 +422,7 @@ def parse_markdown_content(...):
 ```python
 # __init__.py
 """
-Public API Definition - nur notwendige Klassen exportieren
+Public API Definition - export only necessary classes
 """
 from .core.generator import UniversalMarkdownToPDF
 
@@ -510,4 +498,4 @@ External Dependencies:
 
 ---
 
-**[⬅️ Zurück zu System Architecture](01-System-Architecture.md) | [Weiter zu Design Patterns ➡️](03-Design-Patterns.md)**
+**[⬅️ Back to System Architecture](01-System-Architecture.md) | [Next to Design Patterns ➡️](03-Design-Patterns.md)**

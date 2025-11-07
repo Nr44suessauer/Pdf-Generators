@@ -1,39 +1,39 @@
-# HHN PDF Generator - Technische Architektur
+# HHN PDF Generator - Technical Architecture
 
 **Version:** 2.0.0  
-**Datum:** November 2025  
-**Autor:** HHN UniTyLab  
+**Date:** November 2025  
+**Author:** HHN UniTyLab  
 
-## 📋 Inhaltsverzeichnis
+## 📋 Table of Contents
 
-1. [Überblick](#überblick)
-2. [Systemarchitektur](#systemarchitektur)
-3. [Modulstruktur](#modulstruktur)
-4. [Datenfluss](#datenfluss)
-5. [Kernkomponenten](#kernkomponenten)
+1. [Overview](#overview)
+2. [System Architecture](#system-architecture)
+3. [Module Structure](#module-structure)
+4. [Data Flow](#data-flow)
+5. [Core Components](#core-components)
 6. [Design Patterns](#design-patterns)
-7. [Abhängigkeiten](#abhängigkeiten)
+7. [Dependencies](#dependencies)
 8. [Deployment](#deployment)
 
 ---
 
-## 🎯 Überblick
+## 🎯 Overview
 
-Das **HHN PDF Generator** System ist eine modulare Python-Anwendung zur Konvertierung von Markdown-Dokumenten in professionelle PDF-Dokumente mit Hochschul-Corporate-Design. Das System implementiert eine 2-Pass-Architektur für präzise Seitennummerierung im Inhaltsverzeichnis.
+The **HHN PDF Generator** system is a modular Python application for converting Markdown documents into professional PDF documents with university corporate design. The system implements a 2-pass architecture for precise page numbering in the table of contents.
 
-### Hauptfunktionen
-- ✅ YAML Front-Matter Parsing für Metadaten
-- ✅ Markdown zu PDF Konvertierung 
-- ✅ Automatische Inhaltsverzeichnis-Generierung
-- ✅ Logo-Download und -Integration
-- ✅ Signaturfelder-Generierung
-- ✅ 2-Pass-Rendering für akkurate Seitenzahlen
+### Main Features
+- ✅ YAML Front-Matter parsing for metadata
+- ✅ Markdown to PDF conversion 
+- ✅ Automatic table of contents generation
+- ✅ Logo download and integration
+- ✅ Signature field generation
+- ✅ 2-Pass rendering for accurate page numbers
 
 ---
 
-## 🏗️ Systemarchitektur
+## 🏗️ System Architecture
 
-### High-Level Architektur
+### High-Level Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -110,7 +110,7 @@ Das **HHN PDF Generator** System ist eine modulare Python-Anwendung zur Konverti
 
 ---
 
-## 📁 Modulstruktur
+## 📁 Module Structure
 
 ### Package Hierarchy
 
@@ -121,7 +121,7 @@ hhn_pdf_generator/
 │
 ├── main.py                     # CLI Entry Point
 │
-├── core/                       # Kernfunktionalität
+├── core/                       # Core functionality
 │   ├── generator.py           # Haupt-PDF-Generator
 │   ├── config.py              # Konfiguration & Konstanten
 │   ├── styles.py              # PDF-Stil-Definitionen
@@ -136,7 +136,7 @@ hhn_pdf_generator/
 │
 └── generators/                 # Content-Generatoren
     ├── title_page.py          # Titelseite Generator
-    ├── toc.py                 # Inhaltsverzeichnis Generator
+    ├── toc.py                 # Table of Contents Generator
     └── signature.py           # Signatur-Generator
 ```
 
@@ -165,7 +165,7 @@ generators/toc.py
 
 ---
 
-## 🔄 Datenfluss
+## 🔄 Data Flow
 
 ### 1. Input Processing Pipeline
 
@@ -237,17 +237,17 @@ Input: thesis.md
 
 ---
 
-## 🧩 Kernkomponenten
+## 🧩 Core Components
 
 ### 1. UniversalMarkdownToPDF (Core Generator)
 
 ```python
 class UniversalMarkdownToPDF:
     """
-    Hauptklasse für die PDF-Generierung
+    Main class for PDF generation
     
     Verantwortlichkeiten:
-    - Orchestrierung des gesamten Konvertierungsprozesses
+    - Orchestration of the entire conversion process
     - Koordination zwischen allen Submodulen
     - 2-Pass PDF-Generierung
     - Header/Footer Management
@@ -356,7 +356,7 @@ class MarkdownParser:
     - Heading-Hierarchie Erkennung
     - Markdown-Formatierung (Bold, Italic, Code)
     - TOC-Item Extraktion
-    - Anchor-Generierung für Verlinkung
+    - Anchor generation for linking
     """
     
     toc_items: List[dict]  # Extracted headings
@@ -401,7 +401,7 @@ class PageTrackingDocTemplate(BaseDocTemplate):
     
     Features:
     - Anchor-Position Tracking
-    - Page Number Korrektur für TOC
+    - Page number correction for TOC
     - Header/Footer Integration
     """
     
@@ -493,7 +493,7 @@ StoryBuilder
 ```
 UniversalMarkdownToPDF
 ┌─────────────────────────────────────┐
-│ Vereinfachte Schnittstelle für:     │
+│ Simplified interface for:         │
 │                                     │
 │ ├── YAMLParser                      │
 │ ├── MarkdownParser                  │  
@@ -509,7 +509,7 @@ UniversalMarkdownToPDF
 
 ---
 
-## 📦 Abhängigkeiten
+## 📦 Dependencies
 
 ### External Dependencies
 
@@ -747,7 +747,7 @@ Testing Pyramid:
 ## 📝 Changelog
 
 ### Version 2.0.0 (Current)
-- ✅ 2-Pass PDF Generation für akkurate TOC
+- ✅ 2-Pass PDF Generation for accurate TOC
 - ✅ Modulare Architektur 
 - ✅ Code-Bereinigung und Optimierung
 - ✅ Entfernung redundanter `__init__.py` Dateien

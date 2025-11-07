@@ -18,8 +18,8 @@ student:
   student_id: "200882"
   program: "Software engineering Master"
   specialization: "HCI"
-  supervisor: "Prof. Dr. Gerrit Meixner"
-  co_supervisor: "Prof. Dr. Co-Supervisor"
+  supervisor: "Prof. Dr. supervisor"
+  co_supervisor: " "
   academic_year: "2024/2025"
   research_lab: "UniTyLab"
 
@@ -35,7 +35,7 @@ flags:
   toc_on_table_page: true
   signature_line: true
   supervisor_signature: true
-  co_supervisor_signature: true
+  co_supervisor_signature: false
 
 # University Information
 university:

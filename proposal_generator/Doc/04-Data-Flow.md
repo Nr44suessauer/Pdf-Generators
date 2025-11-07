@@ -1,9 +1,9 @@
-# 🔄 Datenfluss
+# 🔄 Data Flow
 
-**Datei:** 04-Data-Flow.md  
+**File:** 04-Data-Flow.md  
 **Version:** 2.0.0  
 
-## 📋 Inhalt
+## 📋 Contents
 
 1. [Input Processing Pipeline](#input-processing-pipeline)
 2. [Two-Pass PDF Generation](#two-pass-pdf-generation)

@@ -1,20 +1,20 @@
-# 🏗️ System-Architektur
+# 🏗️ System Architecture
 
-**Datei:** 01-System-Architecture.md  
+**File:** 01-System-Architecture.md  
 **Version:** 2.0.0  
 
-## 📋 Inhalt
+## 📋 Contents
 
-1. [High-Level Architektur](#high-level-architektur)
+1. [High-Level Architecture](#high-level-architecture)
 2. [Layered Architecture](#layered-architecture)
-3. [Systemkomponenten](#systemkomponenten)
-4. [Architekturprinzipien](#architekturprinzipien)
+3. [System Components](#system-components)
+4. [Architecture Principles](#architecture-principles)
 
 ---
 
-## 🏗️ High-Level Architektur
+## 🏗️ High-Level Architecture
 
-### Systemübersicht
+### System Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -45,7 +45,7 @@
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Komponenten-Interaktion
+### Component Interaction
 
 ```
 User Input
@@ -79,7 +79,7 @@ User Input
 
 ## 📚 Layered Architecture
 
-### Schichtenmodell
+### Layer Model
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -123,9 +123,9 @@ User Input
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Schichtverantwortlichkeiten
+### Layer Responsibilities
 
-| Schicht | Verantwortlichkeit | Komponenten |
+| Layer | Responsibility | Components |
 |---------|-------------------|-------------|
 | **Presentation** | User Interface, Input Handling | CLI, Batch Scripts |
 | **Business Logic** | Core Business Rules, Orchestration | PDF Generator, Processors |
@@ -134,23 +134,7 @@ User Input
 
 ---
 
-## 🧩 Systemkomponenten
-
-### Core Engine
-
-```
-UniversalMarkdownToPDF
-┌─────────────────────────────────────┐
-│ Central Orchestrator                │
-│                                     │
-│ Responsibilities:                   │
-│ ├── Input File Processing           │
-│ ├── 2-Pass PDF Generation           │
-│ ├── Component Coordination          │
-│ ├── Error Handling                  │
-│ └── Resource Management             │
-└─────────────────────────────────────┘
-```
+## 🏭 System Components
 
 ### Processing Pipeline
 
@@ -211,7 +195,7 @@ Generation Services:
 
 ---
 
-## 🎯 Architekturprinzipien
+## 🎯 Architecture Principles
 
 ### 1. Separation of Concerns
 
@@ -227,25 +211,7 @@ Generation Services:
 └─────────────────────────────────────┘
 ```
 
-### 2. Dependency Inversion
-
-```
-High-Level Modules ────┐
-                       │ depend on
-                       ▼
-              Abstractions
-                       ▲
-                       │ implemented by
-Low-Level Modules ─────┘
-
-Example:
-Generator ──depends on──▶ IParser
-                            ▲
-                            │ implements
-                       YAMLParser
-```
-
-### 3. Open/Closed Principle
+### 2. Open/Closed Principle
 
 ```
 ┌─────────────────────────────────────┐
@@ -258,7 +224,7 @@ Generator ──depends on──▶ IParser
 └─────────────────────────────────────┘
 ```
 
-### 4. Single Responsibility
+### 3. Single Responsibility
 
 ```
 Each Class Has One Reason to Change:
@@ -270,72 +236,6 @@ LogoHandler           ──▶ Logo Download & Processing
 StyleManager          ──▶ PDF Style Management
 ```
 
-### 5. Modularity & Cohesion
-
-```
-High Cohesion:
-┌─────────────────────────────────────┐
-│ Related functions grouped together  │
-│                                     │
-│ utils/     → All utility functions   │
-│ core/      → Core business logic     │
-│ generators/→ All content generators  │
-└─────────────────────────────────────┘
-
-Low Coupling:
-┌─────────────────────────────────────┐
-│ Minimal dependencies between        │
-│ modules, clear interfaces           │
-│                                     │
-│ Interface-based communication       │
-│ Dependency injection pattern        │
-└─────────────────────────────────────┘
-```
-
 ---
 
-## 🔍 Architektur-Qualitätseigenschaften
-
-### Wartbarkeit (Maintainability)
-
-```
-Metrics:
-├── Cyclomatic Complexity: Low (< 10 per method)
-├── Code Duplication: Minimal (< 5%)
-├── Module Coupling: Loose
-└── Documentation Coverage: High (> 80%)
-```
-
-### Erweiterbarkeit (Extensibility)
-
-```
-Extension Points:
-├── New Content Generators (Strategy Pattern)
-├── Additional Input Formats (Parser Interface)
-├── Custom Styling (Style System)
-└── Plugin Architecture (Future)
-```
-
-### Testbarkeit (Testability)
-
-```
-Design for Testing:
-├── Dependency Injection for Mocking
-├── Clear Input/Output Contracts
-├── Isolated Components
-└── Minimal Side Effects
-```
-
-### Performance
-
-```
-Characteristics:
-├── Time Complexity: O(n) where n = input size
-├── Space Complexity: O(n) 
-├── Memory Usage: ~50-100MB per document
-└── Processing Speed: ~1-5 seconds per document
-```
-
----
-
-**[⬅️ Zurück zur Übersicht](README.md) | [Weiter zu Module Structure ➡️](02-Module-Structure.md)**
+**[⬅️ Back to Overview](README.md) | [Continue to Module Structure ➡️](02-Module-Structure.md)**
