@@ -1,0 +1,141 @@
+﻿{
+  "type": "cv",
+
+  "show_career":        true,
+  "show_qualifications": true,
+  "show_courses":       false,
+  "show_projects":      true,
+
+  "name":       "Max Mustermann",
+  "birthdate":  "01.01.1990",
+  "birthplace": "Musterstadt",
+  "address":    "Musterstraße 42, 71000 Musterstadt",
+  "phone":      "0160 1234567",
+  "email":      "max.mustermann@example.de",
+  "web":        "DeadlineDriven.Dev/elopment",
+
+  "career": [
+    {
+      "period":       "09/2023 – Heute",
+      "title":        "Master-Studium: Software-Engineering",
+      "organization": "Hochschule Heilbronn",
+      "details": [
+        "Schwerpunkt: Human-Computer Interaction (HCI)",
+        "Masterarbeit: Engineering eines 3D-Scanners mit eigener Software (Abgabe Juli 2026)"
+      ]
+    },
+    {
+      "period":       "02/2023 – Heute",
+      "title":        "Akademische Assistenz (Fakultät IT & UnityLab)",
+      "organization": "Hochschule Heilbronn",
+      "details": [
+        "Betreuung in SV2, Integrated Sensors, Embedded Systems, Realtime Systems & Mixed Reality Lab",
+        "Organisations-Mitglied von SemCon, Bewerbertag, BarCamp",
+        "Selbstständige Konzeption und Durchführung von Labor-Einheiten",
+        "Einführung von studentischen KI-Werkzeugen im Lehrbereich (Bring your own AI)"
+      ]
+    },
+    {
+      "period":       "03/2021 – 08/2024",
+      "title":        "Software-Engineering / Prototypherstellung",
+      "organization": "Sensovo GmbH, Heilbronn",
+      "details": [
+        "Schwerpunkte: Platinendesign, Prototyping & C/C++ Programmierung",
+        "Leitende Tätigkeit (Teamgröße 3)",
+        "Entwicklung eingebetteter Messsysteme für den medizinisch-industriellen Einsatz",
+        "Schnittstellen-Entwicklung: BLE, I2C, SPI, UART auf ARM-Cortex-Plattformen",
+        "BmBF-Projekt: https://www.ife.uni-stuttgart.de/llis/forschung/ufo/"
+      ]
+    },
+    {
+      "period":       "09/2018 – 02/2023",
+      "title":        "Bachelor of Science: Software Engineering",
+      "organization": "Hochschule Heilbronn",
+      "details":      []
+    },
+    {
+      "period":       "08/2015 – 08/2017",
+      "title":        "Mechatroniker NFZ (Bus & Feuerwehr/Militär)",
+      "organization": "MAN Truck & Bus, Korntal-Münchingen",
+      "details":      []
+    },
+    {
+      "period":       "09/2012 – 07/2015",
+      "title":        "Ausbildung: Mechatroniker für Nutzfahrzeugtechnik",
+      "organization": "MAN, Korntal-Münchingen",
+      "details":      []
+    },
+    {
+      "period":       "01/2012 – 08/2012",
+      "title":        "Freiwilliger Wehrdienst",
+      "organization": "Kempten & Ulm",
+      "details":      []
+    },
+    {
+      "period":       "09/2010 – 08/2011",
+      "title":        "Freiwilliges Soziales Jahr (FSJ)",
+      "organization": "Krankenhaus Ludwigsburg",
+      "details":      []
+    }
+  ],
+
+  "qualifications": [
+    {
+      "label": "Abschlüsse",
+      "value": "Ingenieur (B.Sc.) und NFZ-Mechatroniker"
+    },
+    {
+      "label": "Fachkenntnisse",
+      "value": "Informationstechniker-Handwerk, Embedded Systems, 3D-Druck, CNC, Laser, Linux, IoT"
+    },
+    {
+      "label": "Praxiserfahrung",
+      "value": "Langjährige Tätigkeit im Bereich Elektronik, Software-Entwicklung & Organisation von Events an der Hochschule (SemCon, Bewerbertag etc.)"
+    }
+  ],
+
+  "courses": [
+    {
+      "id":    "172352",
+      "title": "Praktikum Maschinelles Lernen",
+      "note":  "bestanden",
+      "url":   ""
+    },
+    {
+      "id":    "172371",
+      "title": "Deep Learning",
+      "note":  "",
+      "url":   "https://deadlinedriven.dev/articles"
+    },
+    {
+      "id":    "262311",
+      "title": "Intelligent Systems",
+      "note":  "",
+      "url":   "https://deadlinedriven.dev/articles/ai-in-education-for-future-professionals"
+    },
+    {
+      "id":    "261757",
+      "title": "Signalverarbeitung 2",
+      "note":  "Einführung von Bring your own AI",
+      "url":   "https://deadlinedriven.dev/sv2/"
+    }
+  ],
+
+  "projects": [
+    {
+      "name":        "I-Scan",
+      "description": "Open-Source 3D Scanner Plattform",
+      "url":         "https://deadlinedriven.dev/projects/i_scan"
+    },
+    {
+      "name":        "Develop PC",
+      "description": "Fun Build – Setup für das Büro in der Hochschule",
+      "url":         "https://deadlinedriven.dev/projects/develop_pc"
+    },
+    {
+      "name":        "T-Knit",
+      "description": "Automatisierte Strick-Liesel",
+      "url":         "https://deadlinedriven.dev/projects/t_knit"
+    }
+  ]
+}

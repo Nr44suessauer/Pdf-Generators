@@ -1,0 +1,39 @@
+{
+  "sender": {
+    "name":   "Max Mustermann",
+    "street": "Musterstraße 42",
+    "city":   "71000 Musterstadt",
+    "email":  "max.mustermann@example.de",
+    "web":    "DeadlineDriven.Dev/elopment"
+  },
+
+  "date": "Musterstadt, 05.04.2026",
+
+  "recipient": [
+    "Prof. Dr.-Ing. Max Beispiel",
+    "Hochschule Musterstadt",
+    "Musterstraße 39",
+    "74000 Musterstadt"
+  ],
+
+  "subject": "Initiativbewerbung als wissenschaftlicher Mitarbeiter für das kommende Projekt",
+
+  "salutation": "Sehr geehrter Herr Prof. Dr.-Ing. Beispiel,",
+
+  "body": [
+    "hiermit bewerbe ich mich initiativ als wissenschaftlicher Mitarbeiter für ein neues Projekt in Ihrem Fachgebiet. Als \"Maker\" sprechen mich die thematische Ausrichtung Ihrer Fachgebiete wie Nachhaltige Produktentwicklung & Additive Manufacturing besonders an.",
+    "Im SEB/SEM Studiengang habe ich über die Jahre verteilt in allen Hardwarenahen Kursen assistiert & doziert. Zusätzlich habe ich im Unitylab verschiedene studentische Projekte betreut. Bei den Events wie SemCon (Semesterconference), Bewerbertag etc. habe ich essenziell mitgewirkt.",
+    "Meine Stärken liegen in meiner tiefen Vernetzung innerhalb der Hochschule sowie im Transferwissen aus meinem vielseitigen Lebenslauf.",
+    "Fachlich bin ich auf die Softwareentwicklung spezialisiert, insbesondere auf die hardwarenahe Programmierung in C/C++ für eigene Geräteentwicklungen. Adaptive Fertigungsverfahren wie 3D-Druck, CNC-Fräsen und Lasercutting sind mir durch die tägliche Praxis bestens vertraut.",
+    "Um Prozesse zu automatisieren und unabhängig von externen Anbietern zu agieren, betreue ich zudem eigene Services wie OpenWebUI, n8n und Git und mehr auf meiner eigenen Infrastruktur."
+  ],
+
+  "closing":   "Mit freundlichen Grüßen",
+  "signature": "Max Mustermann",
+
+  "attachments": [
+    "Lebenslauf",
+    "Arbeitszeugnis HHN",
+    "Arbeitszeugnis Sensovo"
+  ]
+}
